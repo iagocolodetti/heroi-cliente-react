@@ -1,0 +1,47 @@
+.input-wrap .floating-label {
+    position: absolute;
+    opacity: 0.7;
+    pointer-events: none;
+    top: 7px;
+    left: 21px;
+    transition: 0.2s ease all;
+}
+th {
+    cursor: pointer;
+}
+
+.input-wrap input:focus ~ .floating-label,
+.input-wrap input:not(:focus):valid ~ .floating-label {
+    color: rgb(157, 221, 255);
+    top: -1px;
+    left: 22px;
+    font-size: 10px;
+    opacity: 1;
+}
+
+select:required:invalid {
+    color: gray;
+}
+option[value=""][disabled] {
+    display: none;
+}
+option {
+    color: black;
+}
+
+.select-wrap .floating-label {
+    position: absolute;
+    opacity: 0.7;
+    pointer-events: none;
+    top: 7px;
+    left: 20px;
+    transition: 0.2s ease all;
+}
+.select-wrap select:focus ~ .floating-label,
+.select-wrap select:not(:focus):valid ~ .floating-label {
+    color: rgb(157, 221, 255);
+    top: -1px;
+    left: 21px;
+    font-size: 10px;
+    opacity: 1;
+}
