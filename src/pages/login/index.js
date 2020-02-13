@@ -22,9 +22,9 @@ function Login({ history }) {
         if (localStorage.getItem('heroisApiAuth')) {
             history.push('/herois/listar');
         } else {
-            const erro = localStorage.getItem('heroisApiAuthError');
-            if (erro) {
-                setMensagem(divAlert(`${erro}.`, 'alert-danger'));
+            const error = localStorage.getItem('heroisApiAuthError');
+            if (error) {
+                setMensagem(divAlert(`Erro: ${error}.`, 'alert-danger'));
                 localStorage.removeItem('heroisApiAuthError');
             }
         }
@@ -33,9 +33,9 @@ function Login({ history }) {
     async function login() {
         setMensagem(null);
         if (!nome) {
-            setMensagem(divAlert('Preencha o campo destinado ao nome.', 'alert-danger'));
+            setMensagem(divAlert('Erro: Preencha o campo destinado ao nome.', 'alert-danger'));
         } else if (!senha) {
-            setMensagem(divAlert('Preencha o campo destinado à senha.', 'alert-danger'));
+            setMensagem(divAlert('Erro: Preencha o campo destinado à senha.', 'alert-danger'));
         } else {
             setLogandoUsuario(true);
             try {

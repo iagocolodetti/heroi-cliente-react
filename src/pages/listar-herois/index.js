@@ -31,7 +31,7 @@ function ListarHerois() {
                     setMensagem(divAlert('Não há heróis cadastrados.', 'alert-danger'));
                 }
             } catch (error) {
-                if (error.response.data.status === "401") {
+                if (error.response.data.status === 401) {
                     localStorage.removeItem('heroisApiAuth');
                     localStorage.setItem('heroisApiAuthError', error.response.data.message);
                     history.push('/login');
@@ -55,7 +55,7 @@ function ListarHerois() {
             setHerois(herois.filter(_heroi => _heroi.id !== heroi.id));
             setMensagem(divAlert(`Herói '${heroi.nome}' excluído com sucesso.`, 'alert-success'));
         } catch (error) {
-            if (error.response.data.status === '401') {
+            if (error.response.data.status === 401) {
                 localStorage.removeItem('heroisApiAuth');
                 localStorage.setItem('heroisApiAuthError', error.response.data.message);
                 history.push('/login');

@@ -62,7 +62,13 @@ function CadastrarHeroi() {
                 setUniverso('');
                 setMensagem(divAlert(`Herói '${heroi.nome}' adicionado com sucesso.`, 'alert-success'));
             } catch (error) {
-                setMensagem(divAlert(error.response ? `Erro: ${error.response.data.message}.` : 'Erro: Não foi possível cadastrar o herói.', 'alert-danger'));
+                if (error.response.data.status === 401) {
+                    localStorage.removeItem('heroisApiAuth');
+                    localStorage.setItem('heroisApiAuthError', error.response.data.message);
+                    history.push('/login');
+                } else {
+                    setMensagem(divAlert(error.response ? `Erro: ${error.response.data.message}.` : 'Erro: Não foi possível cadastrar o herói.', 'alert-danger'));
+                }
             } finally {
                 setCadastrandoHeroi(false);
             }
