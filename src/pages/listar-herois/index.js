@@ -49,18 +49,20 @@ function ListarHerois() {
     }, [carregarHerois]);
 
     async function handleExcluir(heroi) {
-        setMensagem(null);
-        try {
-            await api.delete(`/herois/${heroi.id}`, { headers: { 'Authorization': authorization } });
-            setHerois(herois.filter(_heroi => _heroi.id !== heroi.id));
-            setMensagem(divAlert(`Herói '${heroi.nome}' excluído com sucesso.`, 'alert-success'));
-        } catch (error) {
-            if (error.response.data.status === 401) {
-                localStorage.removeItem('heroisApiAuth');
-                localStorage.setItem('heroisApiAuthError', error.response.data.message);
-                history.push('/login');
-            } else {
-                setMensagem(divAlert(error.response ? `Erro: ${error.response.data.message}.` : 'Erro: Não foi possível excluir o herói.', 'alert-danger'));
+        if (window.confirm(`Deseja realmente excluir o herói '${heroi.nome}'?`)) {
+            setMensagem(null);
+            try {
+                await api.delete(`/herois/${heroi.id}`, { headers: { 'Authorization': authorization } });
+                setHerois(herois.filter(_heroi => _heroi.id !== heroi.id));
+                setMensagem(divAlert(`Herói '${heroi.nome}' excluído com sucesso.`, 'alert-success'));
+            } catch (error) {
+                if (error.response.data.status === 401) {
+                    localStorage.removeItem('heroisApiAuth');
+                    localStorage.setItem('heroisApiAuthError', error.response.data.message);
+                    history.push('/login');
+                } else {
+                    setMensagem(divAlert(error.response ? `Erro: ${error.response.data.message}.` : 'Erro: Não foi possível excluir o herói.', 'alert-danger'));
+                }
             }
         }
     }
