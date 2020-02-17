@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import './styles.css';
 
@@ -7,7 +7,8 @@ import api from '../../services/api';
 
 import DivAlert from '../../components/DivAlert';
 
-function Login({ history }) {
+function Login() {
+    const history = useHistory();
     const [nome, setNome] = useState('');
     const [senha, setSenha] = useState('');
     const [authorization, setAuthorization] = useState('');
