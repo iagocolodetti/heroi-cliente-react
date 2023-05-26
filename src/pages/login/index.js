@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.css';
 
@@ -8,7 +8,7 @@ import api from '../../services/api';
 import DivAlert from '../../components/DivAlert';
 
 function Login() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [nome, setNome] = useState('');
     const [senha, setSenha] = useState('');
     const [authorization, setAuthorization] = useState('');
@@ -21,7 +21,7 @@ function Login() {
 
     useEffect(() => {
         if (localStorage.getItem('heroisApiAuth')) {
-            history.push('/herois/listar');
+            navigate('/herois/listar');
         } else {
             const error = localStorage.getItem('heroisApiAuthError');
             if (error) {
@@ -29,7 +29,7 @@ function Login() {
                 localStorage.removeItem('heroisApiAuthError');
             }
         }
-    }, [authorization, history]);
+    }, [authorization, navigate]);
 
     async function login() {
         setMensagem(null);

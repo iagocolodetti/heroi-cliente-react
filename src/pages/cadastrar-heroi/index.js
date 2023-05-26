@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.css';
 
@@ -10,7 +10,7 @@ import api from '../../services/api';
 import DivAlert from '../../components/DivAlert';
 
 function CadastrarHeroi() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [authorization] = useState(localStorage.getItem('heroisApiAuth'));
     const [nome, setNome] = useState('');
     const [poder, setPoder] = useState('');
@@ -37,11 +37,11 @@ function CadastrarHeroi() {
 
     useEffect(() => {
         if (!authorization) {
-            history.push('/login');
+            navigate('/login');
         } else {
             buscarUniversos();
         }
-    }, [authorization, history, buscarUniversos]);
+    }, [authorization, navigate, buscarUniversos]);
     
     async function cadastrarHeroi() {
         setMensagem(null);
@@ -65,7 +65,7 @@ function CadastrarHeroi() {
                 if (error.response.data.status === 401) {
                     localStorage.removeItem('heroisApiAuth');
                     localStorage.setItem('heroisApiAuthError', error.response.data.message);
-                    history.push('/login');
+                    navigate('/login');
                 } else {
                     setMensagem(divAlert(error.response ? `Erro: ${error.response.data.message}.` : 'Erro: Não foi possível cadastrar o herói.', 'alert-danger'));
                 }

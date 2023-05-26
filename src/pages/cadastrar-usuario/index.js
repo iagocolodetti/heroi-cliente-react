@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './styles.css';
 
@@ -8,7 +8,7 @@ import api from '../../services/api';
 import DivAlert from '../../components/DivAlert';
 
 function CadastrarUsuario() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [nome, setNome] = useState('');
     const [senha, setSenha] = useState('');
     const [senhaRepetida, setSenhaRepetida] = useState('');
@@ -21,9 +21,9 @@ function CadastrarUsuario() {
 
     useEffect(() => {
         if (localStorage.getItem('heroisApiAuth')) {
-            history.push('/herois/listar');
+            navigate('/herois/listar');
         }
-    }, [history]);
+    }, [navigate]);
 
     async function cadastrar(e) {
         e.preventDefault();

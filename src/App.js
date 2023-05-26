@@ -1,13 +1,12 @@
-import React from 'react';
 import './App.css';
 
-import Routes from './routes';
+import MyRoutes from './routes';
 
 function App() {
   return (
     <div className="container-fluid center">
       <div className="form-group justify-content-center text-center">
-        <Routes />
+        <MyRoutes />
       </div>
     </div>
   );

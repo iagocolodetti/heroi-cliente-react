@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Moment from 'react-moment';
 
 import './styles.css';
@@ -11,7 +11,7 @@ import api from '../../services/api';
 import DivAlert from '../../components/DivAlert';
 
 function ListarHerois() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [authorization] = useState(localStorage.getItem('heroisApiAuth'));
     const [herois, setHerois] = useState([]);
     const [mensagem, setMensagem] = useState(null);
@@ -34,15 +34,15 @@ function ListarHerois() {
                 if (error.response.data.status === 401) {
                     localStorage.removeItem('heroisApiAuth');
                     localStorage.setItem('heroisApiAuthError', error.response.data.message);
-                    history.push('/login');
+                    navigate('/login');
                 } else {
                     setMensagem(divAlert(error.response ? `Erro: ${error.response.data.message}.` : 'Erro: Não foi possível buscar os heróis.', 'alert-danger'));
                 }
             }
         } else {
-            history.push('/login');
+            navigate('/login');
         }
-    }, [authorization, history]);
+    }, [authorization, navigate]);
     
     useEffect(() => {
         carregarHerois();
@@ -59,7 +59,7 @@ function ListarHerois() {
                 if (error.response.data.status === 401) {
                     localStorage.removeItem('heroisApiAuth');
                     localStorage.setItem('heroisApiAuthError', error.response.data.message);
-                    history.push('/login');
+                    navigate('/login');
                 } else {
                     setMensagem(divAlert(error.response ? `Erro: ${error.response.data.message}.` : 'Erro: Não foi possível excluir o herói.', 'alert-danger'));
                 }
